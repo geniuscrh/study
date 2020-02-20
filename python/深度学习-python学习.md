@@ -40,22 +40,55 @@ jupyter nbextensions_configurator enable --user
 
 **创建与启动名为tensorflow的python环境。anaconda默认一个名为base的python环境。**
 
-```
-conda create -n tensorflow python=3.7
-conda activate tensorflow
-```
-
-**查看tensorflow包信息**
-
-```
-anaconda show anaconda/tensorflow 
+```python
+#python3.7.0,最后成功!
+conda create --name tensorflow python=3.7.0
+#激活环境
+activate tensorflow
 ```
 
-**根据包信息最后的提示进行安装：**
+**通过conda安装**
 
+```python
+conda install tensorflow
 ```
-conda install –channel https://conda.anaconda.org/anaconda tensorflow
+
+
+
+## YellowBrick可视化
+
+### 安装
+
+```python
+pip install yellowbrick
 ```
+
+### 中文无法显示
+
+```python
+import matplotlib as plt
+plt.rcParams['font.sans-serif']=['SimHei']
+```
+
+### 学习网址
+
+ https://www.jianshu.com/p/a76f6d9e0dc3 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
