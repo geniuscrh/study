@@ -2,33 +2,102 @@ Linux学习
 
 
 
+# 环境部署
+
 使用Ubuntu16.04 server
 
 
 
-# 远程控制
+## 远程控制SSH
 
-## 检查软件是否安装
+**检查软件是否安装**
 
 ```
 apt-cache policy openssh-client openssh-server
 ```
 
-## 安装服务端
+**安装服务端**
 
 ```
 apt-get install openssh-server
 ```
 
-## 安装客户端
+**安装客户端**
 
 ```
 apt-get install openssh-client
 ```
 
-## Windows远程连接软件
+**Windows远程连接软件**
 
 XShell
+
+
+
+
+
+
+
+
+
+## APT更新数据源
+
+APT(Advanced Packaging Tool) 是 Debian/Ubuntu 类 Linux 系统中的软件包管理程序, 使用它可以找到想要的软件包, 而且安装、卸载、更新都很简便；也可以用来对 Ubuntu 进行升级; APT 的源文件为 `/etc/apt/` 目录下的 `sources.list` 文件。
+
+
+
+**查看系统版本**
+
+```
+lsb_release -a
+```
+
+输出结果为
+
+```
+No LSB modules are available.
+Distributor ID:    Ubuntu
+Description:    Ubuntu 16.04 LTS
+Release:    16.04
+Codename:    xenial
+```
+
+**注意：** Codename 为 `xenial`，该名称为我们 Ubuntu 系统的名称，修改数据源需要用到该名称
+
+**编辑数据源**
+
+```
+vi /etc/apt/sources.list
+```
+
+**删除全部内容并修改为**
+
+```
+deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
+```
+
+**更新数据源**
+
+```
+apt-get update
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -178,54 +247,11 @@ XShell
 
 
 
-# Linux 软件包管理
 
-*李卫民 发表于 2018-05-12*
 
-APT(Advanced Packaging Tool) 是 Debian/Ubuntu 类 Linux 系统中的软件包管理程序, 使用它可以找到想要的软件包, 而且安装、卸载、更新都很简便；也可以用来对 Ubuntu 进行升级; APT 的源文件为 `/etc/apt/` 目录下的 `sources.list` 文件。
+# APT管理
 
-### 修改数据源
 
-由于国内的网络环境问题，我们需要将 Ubuntu 的数据源修改为国内数据源，操作步骤如下：
-
-#### 查看系统版本
-
-```
-lsb_release -a
-```
-
-输出结果为
-
-```
-No LSB modules are available.
-Distributor ID:    Ubuntu
-Description:    Ubuntu 16.04 LTS
-Release:    16.04
-Codename:    xenial
-```
-
-**注意：** Codename 为 `xenial`，该名称为我们 Ubuntu 系统的名称，修改数据源需要用到该名称
-
-#### 编辑数据源
-
-```
-vi /etc/apt/sources.list
-```
-
-删除全部内容并修改为
-
-```
-deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
-```
-
-#### 更新数据源
-
-```
-apt-get update
-```
 
 ### 常用 APT 命令
 

@@ -119,7 +119,15 @@ df=df[ ~ df['站点类别'].str.contains('核心站点')]
 
 #列名,重命名
  zyd_df.rename(columns={"资源CUID":"机房/资源点CUID"},inplace=True)
-    
+   
+#连接
+c_df=pd.concat([zyd_df,jf_df])
+
+#删除重复项
+df1.duplicated()#判断是否重复
+bbu_data.drop_duplicates()#删除重复项
+df1.drop_duplicates(['A'])#根据某列删除重复项
+
     
 ```
 

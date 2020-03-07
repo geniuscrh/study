@@ -1,4 +1,4 @@
-# 安装
+# 环境安装
 
 ## 使用脚本自动安装
 
@@ -11,7 +11,7 @@ $ sudo sh get-docker.sh --mirror AzureChinaCloud
 
 
 
-# 启动
+## 启动
 
 ```
 service docker start
@@ -21,24 +21,31 @@ service docker start
 
 
 
-# Docker 镜像加速器
+## Docker 镜像加速器
 
 请在 `/etc/docker/daemon.json` 中写入如下内容（如果文件不存在请新建该文件）
 
 ```
 {
   "registry-mirrors": [
-    "https://registry.docker-cn.com"
+    "https://tbyju4u1.mirror.aliyuncs.com"
   ]
 }
+
+
+#阿里云加速
+#https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors?accounttraceid=4de3582aef454ae3a918e6c0e38b482dotjf
 ```
 
 > 
 
-```
-systemctl restart docker
-或者
-service docker restart
+```python
+#systemctl restart docker
+#或者
+#service docker restart
+
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
 ```
 
 **检查加速器是否生效**
@@ -53,6 +60,16 @@ docker info
 Registry Mirrors:
  https://registry.docker-cn.com/
 ```
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -229,6 +246,8 @@ docker exec -it  myUbuntu  bash
 
 
 
+
+
 # Docker 构建 Tomcat
 
 ```
@@ -270,20 +289,45 @@ sudo docker cp containerID:container_path host_path
 
 ## 安装与卸载
 
-在 Linux 上的也安装十分简单，从 [官方 GitHub Release](https://github.com/docker/compose/releases) 处直接下载编译好的二进制文件即可。
+### 使用Curl下载
 
-例如，在 Linux 64 位系统上直接下载对应的二进制包。
+在 Linux 上的也安装十分简单，从 [官方 GitHub Release](https://github.com/docker/compose/releases) 处直接下载编译好的二进制文件即可。
 
 ```
 $ sudo curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
+$curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 ```
 
-赋予权限
+**如果出现无法下载问题，hosts文件添加**
+
+```python
+#sudo vim /etc/hosts   修改hosts文件
+#sudo /etc/init.d/networking restart    重启网络服务
+54.231.98.184 github-com.s3.amazonaws.com
+```
+
+### 通过Offcloud
+
+网站https://www.offcloud.com，下载。
+
+参考网址：<https://www.cnblogs.com/limitlessun/p/11657960.html>
+
+
+
+### 赋予权限
 
 ```
 $ sudo chmod +x /usr/local/bin/docker-compose
 ```
+
+### 测试
+
+```
+docker-compose -version
+```
+
+
 
 ## 使用
 
@@ -650,6 +694,29 @@ volumes:
 
 
 
+#### 授权
+
+```
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'ffffff' WITH GRANT OPTION;
+flush privileges;
+```
+
+`GRANT 权限 on 数据库名.表名 用户名@登录主机 identified by '用户密码'`;
+
+ `ALL PRIVILEGES`  表示赋给远程登录用户所有权限;
+
+ `*`  代表全部数据库/表;
+
+此处root表示要授权的用户的用户名;
+
+ `@`后面跟具体IP表示只允许该IP访问，如果跟的是  `%`  表示允许所有IP都可以访问;
+
+最后就是在`IDENTIFIED BY`后面设置用户登录的密码。（在连接远程数据库时，需要输入上面设置的用户名和密码）
+
+
+
+
+
 ### MySQL8
 
 ```
@@ -680,7 +747,59 @@ services:
 
 
 
+## 实战wangluo—service
 
+**Dockerfile**
+
+```
+FROM java:8 
+#VOLUME /tmp 
+ADD spring-cloud-config-1.0.0-SNAPSHOT.jar  app.jar 
+#RUN bash -c 'touch /app.jar'
+#CMD java -jar app.jar
+ENTRYPOINT java -jar app.jar
+```
+
+**docker-compose.yml**
+
+```yml
+version: '3'
+services:
+ wangluo-service-config:
+  build: ./wangluo-service-config/
+  #image: wangluo-service-config-image
+  container_name: wangluo-service-config
+  restart: always
+  ports:
+   - 8001:8001
+  
+ wangluo-service-eureka:
+  build: ./wangluo-service-eureka/
+  #image: wangluo-service-eureka-image
+  container_name: wangluo-service-eureka
+  restart: always
+  ports:
+   - 8101:8101  
+
+ wangluo-service-redis:
+  image: redis
+  container_name: wangluo-service-redis
+  restart: always
+  ports:
+   - 6379:6379
+  command: redis-server --requirepass ffffff  --notify-keyspace-events Eglx
+
+  
+ wangluo-service-zuul:
+  build: ./wangluo-service-zuul/
+  #image: wangluo-service-zuul-image
+  container_name: wangluo-service-zuul
+  restart: always
+  ports:
+   - 8201:8201
+  
+
+```
 
 
 
@@ -691,8 +810,6 @@ services:
 https://yq.aliyun.com/articles/59144
 
 ## 容器性能信息:docker stats
-
-
 
 
 
