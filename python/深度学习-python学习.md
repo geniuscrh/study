@@ -10,6 +10,12 @@
 
 
 
+
+
+
+
+
+
 ## 自动补全
 
 **1、安装nbextensions**
@@ -33,6 +39,14 @@ jupyter nbextensions_configurator enable --user
 **3、重启jupyter noteboook，点击Nbextensions。**
 
 **4、勾选hinterland**
+
+
+
+
+
+
+
+
 
 
 
