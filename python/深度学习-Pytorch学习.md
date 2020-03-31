@@ -272,3 +272,26 @@ else:
     print("这张照片是:人")
 ```
 
+
+
+
+
+
+
+# YOLO_V1实例
+
+
+
+
+
+# YOLO_V3实例
+
+学习网址
+
+```python
+官方网址
+https://pjreddie.com/
+
+https://github.com/ultralytics/yolov3
+```
+
