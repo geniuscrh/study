@@ -43,9 +43,13 @@ https://blog.csdn.net/qq_34199326/article/details/84072505
 
 
 
-
-
 <https://zhuanlan.zhihu.com/p/70273745>
+
+
+
+训练
+
+ https://www.cnblogs.com/pprp/p/10863496.html 
 
 
 
@@ -72,13 +76,7 @@ pip install labelImg -i https://pypi.tuna.tsinghua.edu.cn/simple/ （Img中的I�
 
 
 
-
-
-
-
 # YOLO_V3训练
-
-
 
 
 
@@ -107,7 +105,7 @@ yolov3-tiny.weights
 
 
 
-**网上下载链接**
+### **网上下载链接**
 
 ```
 https://pan.baidu.com/s/1nv1cErZeb6s0A5UOhOmZcA
@@ -150,6 +148,28 @@ https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset
 
 
 
+## 增加rbc.data与rbc.names
+
+**rbc.data**
+
+```
+classes=2
+train=data/train.txt
+valid=data/test.txt
+names=data/rbc.names
+backup=backup/
+eval=coco
+```
+
+**rbc.names**
+
+```
+mask
+unmask
+```
+
+
+
 ## 执行makeTxt.py
 
 ```
@@ -171,28 +191,6 @@ https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset
    ​	生成labels，里面还有那个照片及box信息
 
 
-
-
-
-## 增加rbc.data与rbc.names
-
-**rbc.data**
-
-```
-classes=2
-train=data/train.txt
-valid=data/test.txt
-names=data/rbc.names
-backup=backup/
-eval=coco
-```
-
-**rbc.names**
-
-```
-mask
-unmask
-```
 
 
 
@@ -238,8 +236,10 @@ random=0
 
 
 
+### 恢复训练
+
 ```
-python train.py --data-cfg data/rbc.data --cfg cfg/yolov3-tiny.cfg --epochs 1
+python train.py --data data/coco.data --cfg cfg/yolov3.cfg --resume
 ```
 
 
@@ -261,7 +261,9 @@ python detect.py --data-cfg data/rbc.data --cfg cfg/yolov3-tiny.cfg --weights we
 **test.py 与train.py**
 
 ```
-num_work需要修改为0
+num_work
+num-workers
+两处均需要修改为0
 ```
 
 **test.py 与train.py**
@@ -293,7 +295,7 @@ https://github.com/zhengmingzhang/mask-detection
 
 <https://blog.csdn.net/qq_21578849/article/details/84980298>
 
-https://blog.csdn.net/lilai619/article/details/79695109>
+https://blog.csdn.net/lilai619/article/details/79695109
 
 <https://blog.csdn.net/public669/article/details/98020800>
 
