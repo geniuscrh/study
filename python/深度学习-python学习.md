@@ -162,7 +162,7 @@ X_train.loc[X_train['Sex']=='female','Sex']=0
 df=df[ ~ df['站点类别'].str.contains('核心站点')]
 
 #关联vlookup
-  result = pd.merge(c_df,zd_df.loc[:,['所属站点','站点CUID']],how='left',on = '所属站点')
+result = pd.merge(c_df,zd_df.loc[:,['所属站点','站点CUID']],how='left',on = '所属站点')
 
 #列名,重命名
  zyd_df.rename(columns={"资源CUID":"机房/资源点CUID"},inplace=True)
