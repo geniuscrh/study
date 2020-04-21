@@ -1,3 +1,32 @@
+
+
+
+
+
+
+
+
+# 插件
+
+## torchsummary
+
+```
+torchsummary.summary(net,input_size)
+```
+
+## 进程条:tqdm
+
+```
+from tqdm.notebook import tqdm
+
+#设置总量
+pbar=tqdm(total=*)
+#更新进展
+pbar.update(1)
+```
+
+
+
 # 基本知识
 
 ## 加载数据
