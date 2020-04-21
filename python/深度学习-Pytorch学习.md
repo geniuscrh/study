@@ -295,3 +295,16 @@ https://pjreddie.com/
 https://github.com/ultralytics/yolov3
 ```
 
+
+
+
+
+# SSD实例
+
+## 口罩
+
+```python
+已实现
+https://github.com/AIZOOTech/FaceMaskDetection
+```
+
