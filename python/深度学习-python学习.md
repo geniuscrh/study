@@ -175,6 +175,9 @@ df1.duplicated()#判断是否重复
 bbu_data.drop_duplicates()#删除重复项
 df1.drop_duplicates(['A'])#根据某列删除重复项
 
+#获取不重复值
+dataframe['xxx'].unique()
+
     
 ```
 

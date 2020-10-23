@@ -5,19 +5,19 @@
 在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，Ubuntu 系统上可以使用这套脚本安装：
 
 ```
+#移动云,使用Centos7.6进行
+
 $ curl -fsSL get.docker.com -o get-docker.sh
 $ sudo sh get-docker.sh --mirror AzureChinaCloud
 ```
 
 
 
-## 启动
+## 启动服务
 
 ```
 service docker start
 ```
-
-
 
 
 
@@ -27,17 +27,14 @@ service docker start
 
 ```
 {
-  "registry-mirrors": [
-    "https://tbyju4u1.mirror.aliyuncs.com"
-  ]
+  "registry-mirrors": ["https://tbyju4u1.mirror.aliyuncs.com"]
 }
 
-
-#阿里云加速
+#阿里云加速配置页面
 #https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors?accounttraceid=4de3582aef454ae3a918e6c0e38b482dotjf
 ```
 
-> 
+重启Docker服务
 
 ```python
 #systemctl restart docker
@@ -54,22 +51,73 @@ $ sudo systemctl restart docker
 
 ```
 docker info
-```
 
-```
+#如果出现以下信息则成功
 Registry Mirrors:
  https://registry.docker-cn.com/
 ```
 
 
 
+## 安装Jupyter Notebook
+
+### 安装基础版
+
+```
+docker run -it -p 8888:8888 jupyter/datascience-notebook
+```
+
+### 安装TensorFlow版
+
+```
+docker run -it -p 8888:8888 tensorflow/tensorflow:nightly-py3-jupyter
+```
+
+### 设置密码
+
+```python
+#进入docker容器
+docker exec id -it /bin/bash
+#设置密码
+jupyter notebook password
+
+然后重启docker
+```
 
 
 
+### 添加映射
+
+```
+还需要一个~v 映射命令
+```
 
 
 
+### 开启:自动补全
 
+```python
+#进入Docker容器后,使用命令
+pip install jupyter_contrib_nbextensions  -i https://mirrors.aliyun.com/pypi/simple/
+#开始安装nbextension
+jupyter contrib nbextension install --user --skip-running-check
+
+在标签页"nbextension",启动"Hinterland"
+
+#参考网址
+https://www.jianshu.com/p/0ab80f63af8a
+```
+
+### 安装皮肤
+
+```python
+#安装
+pip install jupyterthemes -i https://mirrors.aliyun.com/pypi/simple/
+
+#安装主题
+jt -t monokai
+
+```
 
 
 
